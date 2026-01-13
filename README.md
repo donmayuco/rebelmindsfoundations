@@ -1,3 +1,3 @@
 # Rebel Minds Foundations
 
-Initial deployment placeholder.
+Coming soon.
