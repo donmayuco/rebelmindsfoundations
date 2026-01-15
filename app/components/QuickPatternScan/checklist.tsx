@@ -9,7 +9,7 @@ type Category = {
   items: string[];
 };
 
-const STORAGE_KEY = "rmf_quick_pattern_scan_v1";
+const STORAGE_KEY = "rmf_quick_pattern_scan_v2";
 
 const CATEGORIES: Category[] = [
   {
@@ -17,10 +17,10 @@ const CATEGORIES: Category[] = [
     title: "Attention & Engagement",
     items: [
       "My child starts tasks but drifts off quickly without noticing",
-      "My child needs constant reminders to stay focused",
-      "My child can focus only under pressure, urgency, or stress",
+      "My child needs frequent reminders to stay engaged",
+      "My child can focus mostly under pressure, urgency, or stress",
       "My child loses track of what they were doing mid-task",
-      "My child shuts down when attention is required for too long",
+      "My child shuts down when sustained attention is required for too long",
     ],
   },
   {
@@ -41,7 +41,7 @@ const CATEGORIES: Category[] = [
       "Systems work briefly, then fall apart",
       "My child loses materials, instructions, or assignments",
       "Work is started but not completed consistently",
-      "Effort doesn’t always translate into finished work",
+      "Effort doesn’t reliably translate into finished work",
       "I feel like I’m the one holding everything together",
     ],
   },
@@ -104,7 +104,7 @@ function CheckIcon({ checked }: { checked: boolean }) {
 }
 
 function SignalPill({ signal }: { signal: string }) {
-    const cls =
+  const cls =
     signal === "Strong"
       ? "bg-white/15 text-white border border-white/15"
       : signal === "Moderate"
@@ -148,9 +148,7 @@ function MetaPill({
 export default function QuickPatternScan() {
   const allItemIds = useMemo(() => {
     const ids: string[] = [];
-    for (const c of CATEGORIES) c.items.forEach((_, i) =>
-      ids.push(makeId(c.id, i))
-    );
+    for (const c of CATEGORIES) c.items.forEach((_, i) => ids.push(makeId(c.id, i)));
     return ids;
   }, []);
 
@@ -197,17 +195,17 @@ export default function QuickPatternScan() {
       ? "Moderate"
       : "Strong";
 
-  // ✅ Remove the duplicate phrase: keep the “mirror, not a plan” sentence OUT of signalMessage
+  // Flow: Orientation → Assessment → System → Independence
   const signalMessage =
     checkedCount === 0
-      ? "This signal updates automatically as patterns emerge."
+      ? "Start anywhere — this updates automatically as patterns emerge."
       : checkedCount <= 3
-      ? "Early signal — small friction points are common. This is about noticing patterns, not judging them."
-      : checkedCount <= 8
-      ? "Light signal — a few targeted systems could reduce friction and improve follow-through."
+      ? "Early signal — small friction points are common. Use the Orientation Report to organize what you’re seeing and choose a calm next step."
+      : checkedCount <= 7
+      ? "Light signal — a few targeted systems may reduce friction. The Orientation Report helps you focus on the highest-leverage change first."
       : checkedCount <= 12
-      ? "Moderate signal — patterns may be crossing domains. The Parent Initial Assessment clarifies priorities and what to build first."
-      : "Strong signal — the Parent Initial Assessment is the fastest way to turn these patterns into a clear, age-appropriate plan.";
+      ? "Moderate signal — patterns may be crossing domains. Start with the Orientation Report to clarify priorities. If you want scored signals (0–3 by domain), the Parent Initial Assessment is step 2."
+      : "Strong signal — high pattern density. Start with the Orientation Report to stabilize and choose the right path. If you want a scored map of needs and what to build first, the Parent Initial Assessment is step 2.";
 
   const toggle = (id: string) =>
     setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -221,11 +219,11 @@ export default function QuickPatternScan() {
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-full border border-teal-400/20 bg-teal-400/10 px-3 py-1 text-xs font-semibold text-teal-200">
-                Start here
+              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80">
+                Quick scan
               </span>
               <span className="text-xs text-white/50">
-                The first step for every family
+                Optional: a 60-second pattern mirror
               </span>
             </div>
 
@@ -234,12 +232,13 @@ export default function QuickPatternScan() {
             </h2>
 
             <p className="mt-2 text-sm text-white/80">
-              This is not a diagnosis or the Initial Assessment — it simply helps
-              parents recognize common learning patterns.
+              This is not a diagnosis and not the Parent Initial Assessment — it’s a fast
+              mirror to help you notice patterns. Your true starting point is the{" "}
+              <span className="text-white/90 font-semibold">Orientation Report</span>.
             </p>
 
             <p className="mt-1 text-sm italic text-white/70">
-              Think of this as recognition, not evaluation.
+              Think: recognition → orientation → assessment → system → independence.
             </p>
           </div>
 
@@ -261,17 +260,16 @@ export default function QuickPatternScan() {
 
         {/* Signal card */}
         <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-          <div className="grid gap-4 lg:grid-cols-[1fr_320px] lg:items-start">
+          <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
             {/* Left */}
             <div className="space-y-2">
-              {/* ✅ Keep the orientation sentence ONCE (no duplication) */}
               <p className="text-sm text-white/70">
                 Check anything that feels familiar — this scan is a mirror, not a plan.
               </p>
 
-              {/* Pills (lower so they don’t crowd the content) */}
+              {/* Meta pills */}
               <div className="mt-4 flex flex-wrap gap-2">
-                <MetaPill>Pattern scan</MetaPill>
+                <MetaPill>Pattern mirror</MetaPill>
                 <MetaPill tone="teal">No diagnosis</MetaPill>
                 <MetaPill>
                   {checkedCount} / {totalCount} checked
@@ -288,7 +286,7 @@ export default function QuickPatternScan() {
                   <>
                     <MetaPill>Common friction</MetaPill>
                     <MetaPill>Small wins first</MetaPill>
-                    <MetaPill>Clarity → next step</MetaPill>
+                    <MetaPill>Orientation next</MetaPill>
                   </>
                 )}
 
@@ -296,7 +294,7 @@ export default function QuickPatternScan() {
                   <>
                     <MetaPill>Targeted systems</MetaPill>
                     <MetaPill>Reduce friction</MetaPill>
-                    <MetaPill>Improve follow-through</MetaPill>
+                    <MetaPill>Orientation next</MetaPill>
                   </>
                 )}
 
@@ -304,15 +302,15 @@ export default function QuickPatternScan() {
                   <>
                     <MetaPill>Cross-domain pattern</MetaPill>
                     <MetaPill>Prioritize first</MetaPill>
-                    <MetaPill>Build the plan</MetaPill>
+                    <MetaPill>Orientation next</MetaPill>
                   </>
                 )}
 
                 {signal === "Strong" && (
                   <>
                     <MetaPill>High pattern density</MetaPill>
-                    <MetaPill>Clear priorities</MetaPill>
-                    <MetaPill>Map what to build</MetaPill>
+                    <MetaPill>Stabilize first</MetaPill>
+                    <MetaPill>Orientation next</MetaPill>
                   </>
                 )}
               </div>
@@ -321,12 +319,10 @@ export default function QuickPatternScan() {
                 Tip: You don’t need to check everything for support to be useful.
               </p>
 
-              {/* ✅ Move the signal indicator to the BOTTOM of the left panel */}
+              {/* Signal indicator (bottom) */}
               <div className="mt-4 border-t border-white/10 pt-4">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm text-white/60">
-                    Check your signal here:
-                  </span>
+                  <span className="text-sm text-white/60">Your scan signal:</span>
                   <SignalPill signal={signal} />
                 </div>
 
@@ -347,20 +343,40 @@ export default function QuickPatternScan() {
                 </li>
                 <li className="flex gap-2">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/80" />
-                  Helps you notice patterns so you’re not guessing.
+                  Helps you notice repeats so you’re not guessing.
                 </li>
                 <li className="flex gap-2">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/80" />
-                  The Parent Initial Assessment turns patterns into priorities (0–3 by
-                  domain) and a recommended next step.
+                  Orientation comes next: it turns recognition into calm clarity and a recommended path.
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/80" />
+                  If needed, the Parent Initial Assessment is step 2 — scored signals (0–3 by domain) to pinpoint what to build first.
                 </li>
               </ul>
 
               <div className="mt-3 rounded-xl border border-white/10 bg-white/5 p-3">
                 <p className="text-xs text-white/65">
-                  If you want a clear plan (not more pressure), the assessment is where
-                  we map what to build first.
+                  Best use: do this scan fast, then read the Orientation Report with these patterns in mind.
                 </p>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-2">
+                <Link
+                  href="/start-here"
+                  className="inline-flex items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-white/90"
+                >
+                  Read the Orientation Report
+                </Link>
+
+                <a
+                  href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white hover:bg-white/10"
+                >
+                  Start the Parent Initial Assessment (Step 2)
+                </a>
               </div>
             </div>
           </div>
@@ -390,11 +406,7 @@ export default function QuickPatternScan() {
                         className="group flex w-full items-start gap-3 text-left"
                       >
                         <CheckIcon checked={isOn} />
-                        <span
-                          className={`text-sm ${
-                            isOn ? "text-white" : "text-white/80"
-                          }`}
-                        >
+                        <span className={`text-sm ${isOn ? "text-white" : "text-white/80"}`}>
                           {text}
                         </span>
                       </button>
@@ -413,19 +425,27 @@ export default function QuickPatternScan() {
               Ready to turn recognition into clarity?
             </p>
             <p className="mt-1 text-sm text-white/70">
-              The Parent Initial Assessment is where we design systems that improve
-              academic outcomes while reducing parent involvement over time.
+              Next step: read the Orientation Report to get a recommended path. If you want scored signals (0–3 by domain), the Parent Initial Assessment is step 2.
             </p>
           </div>
 
-          <a
-  href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-white/90"
+          <div className="flex w-full flex-col gap-2 md:w-auto sm:flex-row">
+            <Link
+              href="/start-here"
+              className="inline-flex w-full items-center justify-center rounded-2xl bg-white px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-white/90 md:w-auto"
             >
-               Start The Initial Assessment!
-</a>
+              Orientation Report
+            </Link>
+
+            <a
+              href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-4 text-sm font-semibold text-white hover:bg-white/10 md:w-auto"
+            >
+              Assessment (Step 2)
+            </a>
+          </div>
         </div>
       </div>
     </section>

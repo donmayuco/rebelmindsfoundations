@@ -12,6 +12,8 @@ import {
   SlidersHorizontal,
   MapPinned,
   CheckCircle2,
+  BookOpen,
+  ShieldCheck,
 } from "lucide-react";
 
 export default function ServicesPage() {
@@ -29,10 +31,13 @@ export default function ServicesPage() {
           </h1>
 
           <p className="mt-5 text-base text-white/75">
-            Every family starts with clarity. From there, support is tailored
-            based on your child’s needs, your family’s capacity, and how much
-            structure is required — with the goal of reducing parent involvement
-            over time as academic skills and outcomes improve.
+            RMF follows a natural sequence:{" "}
+            <span className="text-white/90 font-semibold">
+              Orientation → Assessment → System → Independence
+            </span>
+            . Every family starts with clarity and context, then we scale support
+            based on need and capacity — with the goal of reducing parent
+            involvement over time as skills and systems take over.
           </p>
         </section>
 
@@ -41,8 +46,8 @@ export default function ServicesPage() {
           <h2 className="text-xl font-semibold">How RMF support works</h2>
 
           <p className="mt-3 text-sm text-white/75">
-            RMF is not tutoring and not ongoing supervision. We identify where
-            learning breaks down, design the right systems, and help families
+            RMF is not tutoring and not ongoing supervision. We help families
+            identify where learning breaks down, design the right systems, and
             install them correctly — so support fades as skills grow.
           </p>
 
@@ -53,35 +58,37 @@ export default function ServicesPage() {
           </p>
         </section>
 
-{/* Quick Pattern Scan */}
-<section className="mt-16">
-  
-  <QuickPatternScan />
-</section>
+        {/* Quick Pattern Scan */}
+        <section className="mt-16">
+          <QuickPatternScan />
+        </section>
 
-        {/* ✅ START HERE (Gateway) */}
+        {/* ✅ START HERE (Gateway) — NOW ORIENTATION */}
         <section className="mt-14">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
               <div className="max-w-3xl">
+                <p className="text-xs font-semibold tracking-wide text-white/60">
+                  START HERE
+                </p>
 
                 <h2 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">
-                  Parent Initial Assessment
+                  Orientation Report
                 </h2>
 
                 <p className="mt-3 text-sm text-white/75 leading-relaxed">
-                  A non-diagnostic, behavior-based intake that replaces
-                  trial-and-error with a clear, age-appropriate plan forward. We
-                  start by understanding how your child actually works — so
-                  every recommendation is intentional.
+                  The Orientation Report helps you quickly organize what you’re
+                  seeing — without pressure, labels, or guesswork. It’s designed
+                  to reduce overwhelm and point you toward the right next step
+                  in the RMF ecosystem.
                 </p>
 
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   {[
-                    "Clear priority signals (what matters most right now)",
-                    "Severity scoring across RMF learning domains (0–3)",
-                    "A recommended path based on need — not upsell",
-                    "A parent results review conversation after completion",
+                    "A clear picture of what matters most right now",
+                    "A simple explanation of the RMF sequence (what happens next and why)",
+                    "A calmer way to move forward without escalating pressure at home",
+                    "A recommended next step based on your family’s situation",
                   ].map((line) => (
                     <div
                       key={line}
@@ -92,30 +99,46 @@ export default function ServicesPage() {
                     </div>
                   ))}
                 </div>
+
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href="/start-here"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-white/90"
+                  >
+                    Read the Orientation Report
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <Link
+                    href="/our-approach"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-6 py-4 text-sm font-semibold text-white hover:bg-white/10"
+                  >
+                    Explore Our Approach
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
 
-              {/* ✅ ONLY CHANGE: Right card (removed "Explore..." CTA) */}
+              {/* Right card */}
               <div className="w-full md:w-[340px]">
                 <div className="rounded-3xl border border-white/10 bg-black/20 p-5">
                   <div className="flex items-center gap-3">
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
-                      <ClipboardList className="h-5 w-5 text-teal-300" />
+                      <BookOpen className="h-5 w-5 text-teal-300" />
                     </span>
                     <div>
-                      <p className="text-sm font-semibold">
-                        What happens after you submit
-                      </p>
+                      <p className="text-sm font-semibold">What this gives you</p>
                       <p className="mt-1 text-xs text-white/60">
-                        No pressure—just clarity and a recommended next step.
+                        Calm clarity, not a sales push.
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-4 space-y-3">
                     {[
-                      "We translate your responses into clear signals (0–3 by domain).",
-                      "You receive priority targets and a recommended path forward.",
-                      "Then we review results with you and guide next steps.",
+                      "A grounded starting point (so you stop spiraling).",
+                      "Language you can use without escalating conflict.",
+                      "A clean next step inside the RMF sequence.",
                     ].map((line) => (
                       <div key={line} className="flex items-start gap-2">
                         <CheckCircle2 className="mt-0.5 h-4 w-4 text-teal-300" />
@@ -129,37 +152,44 @@ export default function ServicesPage() {
                   <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
                     <p className="text-xs text-white/70 leading-relaxed">
                       <span className="font-semibold text-white">
-                        Not a diagnosis.
+                        Non-diagnostic.
                       </span>{" "}
-                      RMF is educational and systems-based—built to reduce
-                      parent involvement over time as academic skills and outcomes improve.
+                      RMF is educational and systems-based. We focus on function
+                      and patterns — then design practical structure that fades
+                      parent load over time.
                     </p>
                   </div>
 
                   <p className="mt-3 text-[11px] text-white/50">
-                    You can start the assessment anytime from the header button.
+                    If you want a deeper, scored map of needs, the Parent Initial
+                    Assessment is step 2.
                   </p>
                 </div>
               </div>
-              {/* ✅ END change */}
             </div>
           </div>
         </section>
 
-        {/* SERVICE COMPARISON */}
+        {/* ✅ SERVICE COMPARISON — UPDATED */}
         <section className="mt-14">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
             <h2 className="text-2xl font-semibold tracking-tight">
               Service Comparison
             </h2>
 
-            <p className="mt-2 max-w-2xl text-sm text-white/75">
-              All families begin with the Initial Assessment. From there, support
-              levels determine how much structure we design and how much we help
-              you install — with the goal of reducing parent load over time.
+            <p className="mt-2 max-w-3xl text-sm text-white/75">
+              The RMF sequence starts with{" "}
+              <span className="text-white/90 font-semibold">Orientation</span>.
+              If you need deeper clarity, we move into{" "}
+              <span className="text-white/90 font-semibold">Assessment</span>{" "}
+              and then into{" "}
+              <span className="text-white/90 font-semibold">System</span>{" "}
+              support — with the goal of reaching{" "}
+              <span className="text-white/90 font-semibold">Independence</span>{" "}
+              (less parent involvement over time).
             </p>
 
-            {/* ✅ marker so you can confirm it renders */}
+            {/* marker */}
             <p className="mt-4 text-xs text-teal-300">✅ Comparison table loaded</p>
 
             <div className="mt-6 overflow-x-auto">
@@ -170,41 +200,41 @@ export default function ServicesPage() {
                       Included
                     </th>
                     <th className="py-3 px-4 text-left text-xs font-semibold text-white/60">
-                      Clarity &amp; Direction
+                      Orientation
                     </th>
                     <th className="py-3 px-4 text-left text-xs font-semibold text-white/60">
-                      System Blueprint
+                      Assessment
                     </th>
                     <th className="py-3 px-4 text-left text-xs font-semibold text-white/60">
-                      Guided Implementation
+                      System Build
                     </th>
                     <th className="py-3 pl-4 text-left text-xs font-semibold text-white/60">
-                      Maintenance &amp; Adjustments
+                      Independence Support
                     </th>
                   </tr>
                 </thead>
 
                 <tbody className="text-sm text-white/75">
                   {[
-                    ["Initial Assessment", "✓", "✓", "✓", "✓"],
-                    ["Parent Results Review Session", "✓", "✓", "✓", "✓"],
+                    ["Orientation Report (Start Here)", "✓", "✓", "✓", "✓"],
+                    ["Parent Initial Assessment (scored)", "—", "✓", "✓", "✓"],
+                    ["Parent Results Review Session", "—", "✓", "✓", "✓"],
                     ["Clear Priority Signals", "✓", "✓", "✓", "✓"],
-                    ["Written RMF System Blueprint", "—", "✓", "✓", "✓"],
-                    ["Parent Role Clarity", "—", "✓", "✓", "✓"],
-                    ["Student Responsibility Map", "—", "✓", "✓", "✓"],
+                    ["Severity by domain (0–3)", "—", "✓", "✓", "✓"],
+                    ["Written RMF System Blueprint", "—", "—", "✓", "✓"],
+                    ["Parent Role Clarity", "—", "—", "✓", "✓"],
+                    ["Student Responsibility Map", "—", "—", "✓", "✓"],
                     ["Guided System Setup", "—", "—", "✓", "—"],
                     ["Student Onboarding Support", "—", "—", "✓", "—"],
-                    ["Parent Check-Ins (Time-Limited)", "—", "—", "✓", "—"],
-                    ["Planned Support Fade", "—", "—", "✓", "—"],
-                    ["Ongoing Adjustments", "—", "—", "—", "✓"],
+                    ["Planned Support Fade", "—", "—", "✓", "✓"],
+                    ["Ongoing Adjustments / Tune-Ups", "—", "—", "—", "✓"],
                     ["Transition Support (new demands)", "—", "—", "—", "✓"],
-                    ["Preventative Tune-Ups", "—", "—", "—", "✓"],
                     [
                       "Primary Outcome",
                       "Clarity",
-                      "Structure",
-                      "Independence",
-                      "Stability",
+                      "Accurate targeting",
+                      "Working structure",
+                      "Stability + independence",
                     ],
                     ["Parent Time Over Time", "⬇ Slightly", "⬇⬇", "⬇⬇⬇", "⬇⬇⬇⬇"],
                   ].map(([label, a, b, c, d]) => (
@@ -258,27 +288,33 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* ✅ HOW RECOMMENDATIONS WORK (Visual strip) */}
+        {/* ✅ HOW RECOMMENDATIONS WORK (Visual strip) — UPDATED */}
         <section className="mt-14">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-4">
             {[
               {
-                title: "1) Assess",
+                title: "1) Orientation",
+                icon: BookOpen,
+                body:
+                  "Start with the Orientation Report to reduce overwhelm and make the next step obvious.",
+              },
+              {
+                title: "2) Assessment",
                 icon: ClipboardList,
                 body:
-                  "You complete the Parent Initial Assessment so we can see where learning breaks down—without labels.",
+                  "If needed, complete the Parent Initial Assessment for scored signals (0–3) across RMF domains.",
               },
               {
-                title: "2) Signals",
-                icon: SlidersHorizontal,
-                body:
-                  "We translate responses into clear signals (0–3 by domain) so priorities are obvious and actionable.",
-              },
-              {
-                title: "3) Recommend",
+                title: "3) System",
                 icon: MapPinned,
                 body:
-                  "We recommend the right level of support based on need and family capacity—so you’re not guessing.",
+                  "We design a practical system blueprint: routines, roles, boundaries, and student ownership.",
+              },
+              {
+                title: "4) Independence",
+                icon: ShieldCheck,
+                body:
+                  "Support fades on purpose — as the student runs the system with less parent involvement.",
               },
             ].map((card) => {
               const Icon = card.icon;
@@ -308,33 +344,35 @@ export default function ServicesPage() {
               <span className="font-semibold text-white">
                 You don’t need to pick the “right package.”
               </span>{" "}
-              The assessment creates clarity, then we guide next steps.
+              Start with Orientation — then we guide your next step inside the
+              RMF sequence.
             </p>
           </div>
         </section>
 
-        {/* ✅ Framing header before tiers */}
+        {/* ✅ Framing header before tiers — UPDATED */}
         <section className="mt-20 max-w-3xl">
           <h2 className="text-2xl font-semibold tracking-tight">
-            Possible next steps after the Initial Assessment
+            Support levels inside the RMF sequence
           </h2>
           <p className="mt-3 text-sm text-white/75">
-            These support levels are typically recommended based on your
-            assessment results, your child’s age, and your family’s capacity —
-            with the goal of reducing parent involvement over time.
+            Orientation comes first. From there, we recommend the next step
+            based on what you need most right now, your child’s age, and your
+            family’s capacity — with the goal of reducing parent involvement
+            over time.
           </p>
         </section>
 
-        {/* SERVICES */}
+        {/* SERVICES (Cards) */}
         <section className="mt-10 space-y-10">
-          {/* TIER 1 */}
+          {/* LEVEL 1 */}
           <div className="group rounded-3xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/7 md:p-8">
             <div className="flex items-start justify-between gap-6">
               <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
-                For families who feel stuck
+                Step 1 of 4
               </p>
               <span className="inline-flex items-center rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-white/55">
-                Step 1 of 4
+                Orientation
               </span>
             </div>
 
@@ -343,17 +381,19 @@ export default function ServicesPage() {
                 <Compass className="h-5 w-5 text-teal-300" />
               </span>
               <div>
-                <h3 className="text-2xl font-semibold">Clarity &amp; Direction</h3>
+                <h3 className="text-2xl font-semibold">
+                  Orientation &amp; Direction
+                </h3>
                 <p className="mt-1 text-sm text-white/75">
-                  Understand what’s happening — and what matters most right now.
+                  Reduce overwhelm. Get a clean next step.
                 </p>
               </div>
             </div>
 
             <ul className="mt-6 space-y-2 text-sm text-white/75">
-              <li>• Initial Parent Assessment</li>
-              <li>• Results review and priority signals</li>
-              <li>• Clear recommendations for next steps</li>
+              <li>• Orientation Report (Start Here)</li>
+              <li>• Clarity on what matters most right now</li>
+              <li>• A recommended next step inside RMF</li>
             </ul>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -363,24 +403,71 @@ export default function ServicesPage() {
               </span>
 
               <p className="text-xs text-white/50">
-                Not ideal for daily tutoring or ongoing supervision.
+                Best first step if you feel stuck or overwhelmed.
               </p>
             </div>
 
             <p className="mt-4 text-sm text-white/70">
-              Ideal for families who want to stop guessing and gain immediate
-              clarity without committing to ongoing support.
+              Ideal for families who want to stop guessing, stabilize the
+              situation, and move forward without escalating pressure at home.
             </p>
           </div>
 
-          {/* TIER 2 */}
+          {/* LEVEL 2 */}
           <div className="group rounded-3xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/7 md:p-8">
             <div className="flex items-start justify-between gap-6">
               <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
-                For families who need structure
+                Step 2 of 4
               </p>
               <span className="inline-flex items-center rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-white/55">
-                Step 2 of 4
+                Assessment
+              </span>
+            </div>
+
+            <div className="mt-3 flex items-center gap-3">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
+                <SlidersHorizontal className="h-5 w-5 text-teal-300" />
+              </span>
+              <div>
+                <h3 className="text-2xl font-semibold">Assessment &amp; Signals</h3>
+                <p className="mt-1 text-sm text-white/75">
+                  Behavior-based scoring that makes priorities obvious.
+                </p>
+              </div>
+            </div>
+
+            <ul className="mt-6 space-y-2 text-sm text-white/75">
+              <li>• Parent Initial Assessment (non-diagnostic)</li>
+              <li>• Severity scoring by domain (0–3)</li>
+              <li>• Parent Results Review Session</li>
+              <li>• Recommended path based on need (not upsell)</li>
+            </ul>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-teal-400/20 bg-teal-400/10 px-3 py-1 text-xs font-semibold text-teal-200">
+                <Sparkles className="h-3.5 w-3.5" />
+                Primary outcome: Accurate targeting
+              </span>
+
+              <p className="text-xs text-white/50">
+                Best if you need clearer “what to fix first.”
+              </p>
+            </div>
+
+            <p className="mt-4 text-sm text-white/70">
+              Ideal for families who recognize patterns, but want structured
+              clarity — so decisions aren’t based on vibes or trial-and-error.
+            </p>
+          </div>
+
+          {/* LEVEL 3 */}
+          <div className="group rounded-3xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/7 md:p-8">
+            <div className="flex items-start justify-between gap-6">
+              <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
+                Step 3 of 4
+              </p>
+              <span className="inline-flex items-center rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-white/55">
+                System
               </span>
             </div>
 
@@ -397,37 +484,37 @@ export default function ServicesPage() {
             </div>
 
             <ul className="mt-6 space-y-2 text-sm text-white/75">
-              <li>• Everything in Clarity &amp; Direction</li>
               <li>• Written RMF System Blueprint</li>
               <li>• Parent role clarity and boundaries</li>
               <li>• Student responsibility map</li>
+              <li>• Designed for your family’s capacity</li>
             </ul>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-teal-400/20 bg-teal-400/10 px-3 py-1 text-xs font-semibold text-teal-200">
                 <Sparkles className="h-3.5 w-3.5" />
-                Primary outcome: Structure
+                Primary outcome: Working structure
               </span>
 
               <p className="text-xs text-white/50">
-                Not ideal if you want us to “take over” nightly homework.
+                Not designed to “take over” nightly homework.
               </p>
             </div>
 
             <p className="mt-4 text-sm text-white/70">
-              Ideal for families who want a clear structure they can follow
-              consistently — without reinventing the process every night.
+              Ideal for families who need structure that actually sticks — so
+              you’re not reinventing the process every night.
             </p>
           </div>
 
-          {/* TIER 3 */}
+          {/* LEVEL 4 */}
           <div className="group rounded-3xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/7 md:p-8">
             <div className="flex items-start justify-between gap-6">
               <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
-                For families ready to step back
+                Step 4 of 4
               </p>
               <span className="inline-flex items-center rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-white/55">
-                Step 3 of 4
+                Independence
               </span>
             </div>
 
@@ -438,14 +525,14 @@ export default function ServicesPage() {
               <div>
                 <h3 className="text-2xl font-semibold">Guided Implementation</h3>
                 <p className="mt-1 text-sm text-white/75">
-                  Build the system correctly — then step back.
+                  Install the system correctly — then fade support.
                 </p>
               </div>
             </div>
 
             <ul className="mt-6 space-y-2 text-sm text-white/75">
-              <li>• Time-limited guided support</li>
-              <li>• Parent check-ins during setup</li>
+              <li>• Time-limited guided support during setup</li>
+              <li>• Parent check-ins while the system stabilizes</li>
               <li>• Student onboarding (age-appropriate)</li>
               <li>• Planned reduction of parent involvement</li>
             </ul>
@@ -467,14 +554,14 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          {/* TIER 4 */}
+          {/* OPTIONAL: Maintenance card (kept, but positioned as “as-needed”) */}
           <div className="group rounded-3xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/7 md:p-8">
             <div className="flex items-start justify-between gap-6">
               <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
-                For families managing new demands
+                As-needed
               </p>
               <span className="inline-flex items-center rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-white/55">
-                Step 4 of 4
+                Stability
               </span>
             </div>
 
@@ -496,6 +583,7 @@ export default function ServicesPage() {
               <li>• Periodic system check-ins</li>
               <li>• Adjustments for new academic demands</li>
               <li>• Transition support as children grow</li>
+              <li>• Preventative tune-ups (when needed)</li>
             </ul>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -505,37 +593,46 @@ export default function ServicesPage() {
               </span>
 
               <p className="text-xs text-white/50">
-                Not ideal if systems haven’t been installed yet.
+                Best after systems are already installed.
               </p>
             </div>
 
             <p className="mt-4 text-sm text-white/70">
-              Ideal for families who have systems in place and want occasional
-              guidance without ongoing oversight.
+              Ideal for families who have working systems and want occasional
+              guidance — without ongoing oversight.
             </p>
           </div>
         </section>
 
-        {/* CTA (kept as-is) */}
+        {/* CTA — UPDATED to Orientation gravity */}
         <section className="mt-20 rounded-3xl border border-white/10 bg-white/5 p-8">
-          <h2 className="text-2xl font-semibold">
-            Not sure which level of support is right?
-          </h2>
+          <h2 className="text-2xl font-semibold">Not sure where to begin?</h2>
 
           <p className="mt-3 max-w-2xl text-sm text-white/75">
-            Every family begins with the Initial Assessment. From there, we
-            recommend support based on need — not upsell.
+            Start with the{" "}
+            <span className="text-white/90 font-semibold">Orientation Report</span>
+            . If a scored map of needs would help, the Parent Initial Assessment
+            is step 2 — and we’ll guide your next step from there.
           </p>
 
-          <div className="mt-6">
-          <a
-  href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-white/90"
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/start-here"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-white/90"
             >
-               Start The Initial Assessment!
-</a>
+              Read the Orientation Report
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+
+            <a
+              href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-6 py-4 text-sm font-semibold text-white hover:bg-white/10"
+            >
+              Start the Parent Initial Assessment
+              <ArrowRight className="h-4 w-4" />
+            </a>
           </div>
         </section>
 

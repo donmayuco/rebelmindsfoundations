@@ -1,4 +1,3 @@
-// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import Header from "./components/Header";
@@ -11,19 +10,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#070B18] text-white flex flex-col">
+      <body className="min-h-screen flex flex-col">
         <Header />
-
-        {/* Page content */}
-        <main className="flex-1">
-          {children}
-        </main>
-
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>
