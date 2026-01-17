@@ -1,11 +1,76 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import Container from "./Container";
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // ✅ Brand detection:
+  // - If this is the RMF repo, this will always resolve to RMF anyway.
+  // - If you ever reuse this header in RMA, it will auto-switch based on route patterns.
+  const isRMA =
+    pathname.startsWith("/symptoms") ||
+    pathname.startsWith("/success") ||
+    pathname.startsWith("/paying") ||
+    pathname.startsWith("/terms") ||
+    pathname.startsWith("/contact");
+
+  const brand = isRMA
+    ? {
+        name: "Rebel Minds Academics",
+        tagline: "Because new results require new thinking.",
+        logoSrc: "/rma-logo.png", // <- make sure this exists in /public
+        logoAlt: "Rebel Minds Academics",
+        ctaText: "Start Your Rebel Minds Journey!",
+        ctaHref: "/start-here",
+      }
+    : {
+        name: "Rebel Minds Foundations",
+        tagline: "Learning systems for K–12 students & families",
+        logoSrc: "/rmf-logo.png",
+        logoAlt: "Rebel Minds Foundations",
+        ctaText: "Start The Initial Assessment!",
+        ctaHref: "https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00",
+      };
+
+  const navLinks = isRMA
+    ? [
+        ["/", "Home"],
+        ["/about", "About"],
+        ["/services", "Services"],
+        ["/symptoms", "Symptoms"],
+        ["/access", "Access"],
+        ["/faq", "FAQ"],
+      ]
+    : [
+        ["/", "Home"],
+        ["/start-here", "Start Here"],
+        ["/our-approach", "Our Approach"],
+        ["/services", "Services"],
+        ["/rebelbot", "RebelBot"],
+        ["/faq", "FAQ"],
+        ["/access", "Access"],
+      ];
+
+  const Cta = ({ className = "" }: { className?: string }) =>
+    brand.ctaHref.startsWith("http") ? (
+      <a
+        href={brand.ctaHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {brand.ctaText}
+      </a>
+    ) : (
+      <Link href={brand.ctaHref} className={className}>
+        {brand.ctaText}
+      </Link>
+    );
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-black/5">
@@ -15,40 +80,27 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex min-w-0 flex-col items-start">
             <img
-              src="/rmf-logo.png"
-              alt="Rebel Minds Foundations"
+              src={brand.logoSrc}
+              alt={brand.logoAlt}
               className="h-12 w-auto"
               draggable={false}
             />
             <span className="mt-1 text-xs italic text-slate-500">
-              Because new results require new thinking.
+              {brand.tagline}
             </span>
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm text-slate-700">
-            <Link href="/" className="hover:text-slate-900">Home</Link>
-
-            {/* NEW */}
-            <Link href="/start-here" className="hover:text-slate-900">Start Here</Link>
-            <Link href="/our-approach" className="hover:text-slate-900">Our Approach</Link>
-
-            {/* Existing */}
-            <Link href="/services" className="hover:text-slate-900">Services</Link>
-            <Link href="/rebelbot" className="font-medium text-slate-900">RebelBot</Link>
-            <Link href="/faq" className="hover:text-slate-900">FAQ</Link>
-            <Link href="/access" className="hover:text-slate-900">Access</Link>
+            {navLinks.map(([href, label]) => (
+              <Link key={href} href={href} className="hover:text-slate-900">
+                {label}
+              </Link>
+            ))}
           </nav>
 
           {/* Desktop CTA */}
-          <a
-            href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition"
-          >
-            Start The Initial Assessment!
-          </a>
+          <Cta className="hidden md:inline-flex rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition" />
 
           {/* Mobile menu button */}
           <button
@@ -64,21 +116,7 @@ export default function Header() {
         {mobileOpen && (
           <div className="md:hidden mt-4 rounded-2xl border border-slate-200 bg-white p-3">
             <nav className="flex flex-col gap-1 text-sm text-slate-700">
-              {[
-                ["/", "Home"],
-
-                // NEW
-                ["/start-here", "Start Here"],
-                ["/our-approach", "Our Approach"],
-
-                // Existing
-                ["/about", "About"],
-                ["/how-it-works", "How it Works"],
-                ["/services", "Services"],
-                ["/rebelbot", "RebelBot"],
-                ["/faq", "FAQ"],
-                ["/access", "Access"],
-              ].map(([href, label]) => (
+              {navLinks.map(([href, label]) => (
                 <Link
                   key={href}
                   href={href}
@@ -90,14 +128,7 @@ export default function Header() {
               ))}
             </nav>
 
-            <a
-              href="https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white"
-            >
-              Start The Initial Assessment
-            </a>
+            <Cta className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white" />
           </div>
         )}
       </Container>
