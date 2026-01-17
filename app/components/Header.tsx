@@ -17,6 +17,25 @@ export default function Header() {
     pathname.startsWith("/terms") ||
     pathname.startsWith("/contact");
 
+  // ✅ DEFINE brand (this was missing)
+  const brand = isRMA
+    ? {
+        name: "Rebel Minds Academics",
+        tagline: "Because new results require new thinking.",
+        logoSrc: "/rma-logo.png", // only matters if you ever reuse in RMA
+        logoAlt: "Rebel Minds Academics",
+        ctaText: "Start Your Rebel Minds Journey!",
+        ctaHref: "/start-here",
+      }
+    : {
+        name: "Rebel Minds Foundations",
+        tagline: "Because new results require new thinking.",
+        logoSrc: "/rmf-logo.png",
+        logoAlt: "Rebel Minds Foundations",
+        ctaText: "Start The Initial Assessment!",
+        ctaHref: "https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00",
+      };
+
   const navLinks: Array<[string, string]> = isRMA
     ? [
         ["/", "Home"],
