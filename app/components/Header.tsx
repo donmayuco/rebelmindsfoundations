@@ -17,8 +17,6 @@ export default function Header() {
     pathname.startsWith("/terms") ||
     pathname.startsWith("/contact");
 
-    const isRMA = false;
-
   const navLinks: Array<[string, string]> = isRMA
     ? [
         ["/", "Home"],
