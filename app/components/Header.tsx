@@ -1,90 +1,40 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import Container from "./Container";
 
 export default function Header() {
-  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Brand detection (only matters if this header is ever reused in RMA)
-  const isRMA =
-    pathname.startsWith("/symptoms") ||
-    pathname.startsWith("/success") ||
-    pathname.startsWith("/paying") ||
-    pathname.startsWith("/terms") ||
-    pathname.startsWith("/contact");
+  const navLinks: Array<[string, string]> = [
+    ["/", "Home"],
+    ["/start-here", "Start Here"],
+    ["/our-approach", "Our Approach"],
+    ["/services", "Services"],
+    ["/rebelbot", "RebelBot"],
+    ["/faq", "FAQ"],
+    ["/access", "Access"],
+  ];
 
-  // ✅ DEFINE brand (this was missing)
-  const brand = isRMA
-    ? {
-        name: "Rebel Minds Academics",
-        tagline: "Because new results require new thinking.",
-        logoSrc: "/rma-logo.png", // only matters if you ever reuse in RMA
-        logoAlt: "Rebel Minds Academics",
-        ctaText: "Start Your Rebel Minds Journey!",
-        ctaHref: "/start-here",
-      }
-    : {
-        name: "Rebel Minds Foundations",
-        tagline: "Because new results require new thinking.",
-        logoSrc: "/rmf-logo.png",
-        logoAlt: "Rebel Minds Foundations",
-        ctaText: "Start The Initial Assessment!",
-        ctaHref: "https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00",
-      };
-
-  const navLinks: Array<[string, string]> = isRMA
-    ? [
-        ["/", "Home"],
-        ["/about", "About"],
-        ["/services", "Services"],
-        ["/symptoms", "Symptoms"],
-        ["/access", "Access"],
-        ["/faq", "FAQ"],
-      ]
-    : [
-        ["/", "Home"],
-        ["/start-here", "Start Here"],
-        ["/our-approach", "Our Approach"],
-        ["/services", "Services"],
-        ["/rebelbot", "RebelBot"],
-        ["/faq", "FAQ"],
-        ["/access", "Access"],
-      ];
-
-  const Cta = ({ className = "" }: { className?: string }) =>
-    brand.ctaHref.startsWith("http") ? (
-      <a
-        href={brand.ctaHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-      >
-        {brand.ctaText}
-      </a>
-    ) : (
-      <Link href={brand.ctaHref} className={className}>
-        {brand.ctaText}
-      </Link>
-    );
+  const ctaHref = "https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00";
+  const ctaText = "Start The Initial Assessment!";
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-black/5">
       <Container className="py-4">
-        <div className="flex items-center justify-between">
+        {/* Top row */}
+        <div className="flex items-center justify-between gap-3">
           {/* Logo */}
           <Link href="/" className="flex min-w-0 flex-col items-start">
             <img
-              src={brand.logoSrc}
-              alt={brand.logoAlt}
+              src="/rmf-logo.png"
+              alt="Rebel Minds Foundations"
               className="h-12 w-auto"
               draggable={false}
             />
             <span className="mt-1 text-xs italic text-slate-500">
-              {brand.tagline}
+              Because new results require new thinking.
             </span>
           </Link>
 
@@ -98,7 +48,14 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <Cta className="hidden md:inline-flex rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition" />
+          <a
+            href={ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition"
+          >
+            {ctaText}
+          </a>
 
           {/* Mobile menu button */}
           <button
@@ -126,7 +83,14 @@ export default function Header() {
               ))}
             </nav>
 
-            <Cta className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white" />
+            <a
+              href={ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white"
+            >
+              {ctaText}
+            </a>
           </div>
         )}
       </Container>
