@@ -197,22 +197,31 @@ export default function AssessmentPage() {
   const reset = () => setAnswers({});
 
   // Domain totals + signals
-  const domainResults = useMemo(() => {
-    return DOMAINS.map((d) => {
-      const vals = d.items.map((it) => answers[it.id]);
-      const answered = vals.filter((v) => v !== undefined).length;
-      const total = d.items.length;
-      const sum = vals.reduce((acc, v) => acc + (v ?? 0), 0);
-      const max = total * 3;
+const domainResults = useMemo(() => {
+  return DOMAINS.map((d) => {
+    const vals = d.items.map((it) => answers[it.id]); // (0|1|2|3|undefined)[]
+    const answered = vals.filter((v) => v !== undefined).length;
+    const total = d.items.length;
 
-      // Severity label (quiet + non-gamified)
-      // 0–2 = Low, 3–6 = Mild, 7–10 = Moderate, 11–15 = High
-      const label =
-        sum <= 2 ? "Low signal" : sum <= 6 ? "Mild signal" : sum <= 10 ? "Moderate signal" : "High signal";
+    // ✅ Make the reducer explicitly number-based (fixes Vercel TS build)
+    const sum: number = vals.reduce<number>((acc, v) => acc + (v ?? 0), 0);
 
-      return { ...d, answered, total, sum, max, label };
-    });
-  }, [answers]);
+    const max = total * 3;
+
+    // Severity label (quiet + non-gamified)
+    // 0–2 = Low, 3–6 = Mild, 7–10 = Moderate, 11–15 = High
+    const label =
+      sum <= 2
+        ? "Low signal"
+        : sum <= 6
+        ? "Mild signal"
+        : sum <= 10
+        ? "Moderate signal"
+        : "High signal";
+
+    return { ...d, answered, total, sum, max, label };
+  });
+}, [answers]);
 
   const topDomains = useMemo(() => {
     const sorted = [...domainResults].sort((a, b) => b.sum - a.sum);
