@@ -9,9 +9,7 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // ✅ Brand detection:
-  // - If this is the RMF repo, this will always resolve to RMF anyway.
-  // - If you ever reuse this header in RMA, it will auto-switch based on route patterns.
+  // Brand detection (only matters if this header is ever reused in RMA)
   const isRMA =
     pathname.startsWith("/symptoms") ||
     pathname.startsWith("/success") ||
@@ -19,25 +17,9 @@ export default function Header() {
     pathname.startsWith("/terms") ||
     pathname.startsWith("/contact");
 
-  const brand = isRMA
-    ? {
-        name: "Rebel Minds Academics",
-        tagline: "Because new results require new thinking.",
-        logoSrc: "/rma-logo.png", // <- make sure this exists in /public
-        logoAlt: "Rebel Minds Academics",
-        ctaText: "Start Your Rebel Minds Journey!",
-        ctaHref: "/start-here",
-      }
-    : {
-        name: "Rebel Minds Foundations",
-        tagline: "Learning systems for K–12 students & families",
-        logoSrc: "/rmf-logo.png",
-        logoAlt: "Rebel Minds Foundations",
-        ctaText: "Start The Initial Assessment!",
-        ctaHref: "https://buy.stripe.com/dRm00l3z6dmr3c29Cz4ZG00",
-      };
+    const isRMA = false;
 
-  const navLinks = isRMA
+  const navLinks: Array<[string, string]> = isRMA
     ? [
         ["/", "Home"],
         ["/about", "About"],
@@ -75,7 +57,6 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-black/5">
       <Container className="py-4">
-        {/* Top row */}
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex min-w-0 flex-col items-start">
